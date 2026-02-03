@@ -1,5 +1,4 @@
 package com.productivity.backend.service;
-import com.productivity.backend.config.SecurityConfig;
 import com.productivity.backend.model.User;
 import com.productivity.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
