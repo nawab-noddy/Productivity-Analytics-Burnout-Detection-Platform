@@ -171,8 +171,7 @@ This project is developed for **learning, experimentation, and demonstration of 
 ## 👨‍💻 Author
 
 **Mohammad Anas**  
-B.Tech CSE  
-Aspiring Java Backend Developer  
+B.Tech IT  
 
 ---
 
