@@ -76,4 +76,11 @@ public class AuthController {
         private String password;
     }
 
+
+    // GET http://localhost:8080/api/auth/test
+    // This endpoint requires a valid Token!
+    @org.springframework.web.bind.annotation.GetMapping("/test")
+    public ResponseEntity<?> testProtectedEndpoint() {
+        return ResponseEntity.ok("You have accessed a protected endpoint!");
+    }
 }
