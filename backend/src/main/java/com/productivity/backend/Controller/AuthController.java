@@ -4,7 +4,6 @@ import com.productivity.backend.model.User;
 import com.productivity.backend.service.UserService;
 import com.productivity.backend.util.JwtUtil;
 import lombok.Data;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
