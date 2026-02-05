@@ -3,9 +3,9 @@ package com.productivity.backend.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
@@ -18,14 +18,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Disable CSRF (Cross-Site Request Forgery) because we are building a stateless REST API
-                .csrf(csrf -> csrf.disable())
-
-                // 2. Configure URL permissions
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for Postman/React
                 .authorizeHttpRequests(auth -> auth
-                        // Allow anyone to access the auth routes (register, login)
+                        // Allow public access to Login and Register
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Any other request must be authenticated
+                        // All other URLs are locked
                         .anyRequest().authenticated()
                 );
 
