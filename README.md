@@ -49,7 +49,7 @@ Python ML Microservice
 
 ## 🧩 Project Phases
 
-### Phase 1 – Data Collection & Foundation (Current)
+### Phase 1 – Data Collection & Foundation 
 - User authentication using JWT
 - Daily productivity data input
 - Strict validation to ensure data quality
@@ -57,7 +57,7 @@ Python ML Microservice
 - APIs for fetching trends and summaries
 - **No AI in this phase (intentional)**
 
-### Phase 2 – Rule-Based Intelligence
+### Phase 2 – Rule-Based Intelligence (Current)
 - Productivity drift detection using rules
 - Burnout risk thresholds
 - Alerts and warnings
