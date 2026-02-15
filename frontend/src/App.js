@@ -1,6 +1,6 @@
-import Login from './components/Login';
-import ProductivityLogger from './components/ProductivityLogger';
-import Analytics from './components/Analytics';
+import Login from './component/Login';
+import ProductivityLogger from './component/ProductivityLogger';
+import Analytics from './component/Analytics';
 import { useState } from 'react';
 
 function App() {
