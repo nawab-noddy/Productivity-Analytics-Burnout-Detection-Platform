@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import API from '../api/axiosConfig';
 
-// FIX: Added { onLogin } as a prop
 const Login = ({ onLogin }) => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
@@ -14,29 +13,25 @@ const Login = ({ onLogin }) => {
         e.preventDefault();
         try {
             const response = await API.post('/auth/login', credentials);
-            
             localStorage.setItem('token', response.data);
-            setMessage('Login Successful! Token saved.');
-            
-            // FIX: Call the function to tell App.js to change the screen
-            if (onLogin) {
-                onLogin();
-            }
-            
+            if (onLogin) onLogin();
         } catch (error) {
             setMessage('Login Failed: ' + (error.response?.data?.error || 'Server Error'));
         }
     };
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Login to YouPi Productivity</h2>
+        <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
+            <h2 style={{ textAlign: 'center', color: '#2a5298' }}>Welcome Back</h2>
+            <p style={{ textAlign: 'center', color: '#666', marginBottom: '20px' }}>Sign in to continue</p>
+            
             <form onSubmit={handleLogin}>
-                <input name="username" placeholder="Username" onChange={handleChange} /><br/>
-                <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br/>
+                <input name="username" placeholder="Username" onChange={handleChange} required />
+                <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
                 <button type="submit">Login</button>
             </form>
-            <p>{message}</p>
+            
+            {message && <p style={{ color: 'red', textAlign: 'center', marginTop: '15px' }}>{message}</p>}
         </div>
     );
 };

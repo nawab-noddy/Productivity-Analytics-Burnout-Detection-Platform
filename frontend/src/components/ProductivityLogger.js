@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import API from '../api/axiosConfig';
 
 const ProductivityLogger = () => {
-    // 1. Local state for form data
     const [log, setLog] = useState({
-        date: new Date().toISOString().split('T')[0], // Defaults to today
+        date: new Date().toISOString().split('T')[0],
         workHours: '',
         sleepHours: '',
         stressLevel: 3,
@@ -21,34 +20,45 @@ const ProductivityLogger = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // 2. Sending log to Java backend
             await API.post('/logs', log);
-            setMsg('Log saved successfully!');
+            setMsg('✅ Log saved successfully! Refresh page to update analytics.');
+            setTimeout(() => setMsg(''), 4000); // Hide message after 4s
         } catch (err) {
-            setMsg('Error: ' + (err.response?.data?.error || 'Failed to save log'));
+            setMsg('❌ Error: ' + (err.response?.data?.error || 'Failed to save log'));
         }
     };
 
     return (
-        <div style={{ border: '1px solid #ccc', margin: '20px', padding: '20px' }}>
-            <h3>Log Your Day</h3>
-            <form onSubmit={handleSubmit}>
-                <label>Date: </label>
-                <input type="date" name="date" value={log.date} onChange={handleChange} /><br/>
+        <div className="card">
+            <h3 style={{ marginTop: 0, borderBottom: '2px solid #eee', paddingBottom: '10px' }}>Log Today's Data</h3>
+            
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                <div style={{ width: '100%' }}>
+                    <label style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>Date</label>
+                    <input type="date" name="date" value={log.date} onChange={handleChange} />
+                </div>
                 
-                <input type="number" name="workHours" placeholder="Work Hours" onChange={handleChange} required /><br/>
-                <input type="number" name="sleepHours" placeholder="Sleep Hours" onChange={handleChange} required /><br/>
+                <div style={{ width: '48%' }}>
+                    <input type="number" step="0.5" name="workHours" placeholder="Work Hours (e.g. 8.5)" onChange={handleChange} required />
+                </div>
+                <div style={{ width: '48%' }}>
+                    <input type="number" step="0.5" name="sleepHours" placeholder="Sleep Hours (e.g. 7)" onChange={handleChange} required />
+                </div>
                 
-                <label>Stress (1-5): </label>
-                <input type="range" name="stressLevel" min="1" max="5" onChange={handleChange} /><br/>
+                <div style={{ width: '100%', marginBottom: '15px' }}>
+                    <label style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>Stress Level: {log.stressLevel}</label>
+                    <input type="range" name="stressLevel" min="1" max="5" value={log.stressLevel} onChange={handleChange} style={{ padding: 0 }} />
+                </div>
                 
-                <input name="mood" placeholder="Mood" onChange={handleChange} /><br/>
-                <textarea name="plannedTasks" placeholder="Planned Tasks" onChange={handleChange}></textarea><br/>
-                <textarea name="completedTasks" placeholder="Completed Tasks" onChange={handleChange}></textarea><br/>
+                <div style={{ width: '100%' }}>
+                    <input name="mood" placeholder="Current Mood (e.g. Focused, Tired)" onChange={handleChange} />
+                    <textarea name="plannedTasks" placeholder="What did you plan to do today?" onChange={handleChange} rows="2"></textarea>
+                    <textarea name="completedTasks" placeholder="What did you actually complete?" onChange={handleChange} rows="2"></textarea>
+                </div>
                 
                 <button type="submit">Submit Log</button>
             </form>
-            <p>{msg}</p>
+            {msg && <p style={{ textAlign: 'center', marginTop: '15px', fontWeight: 'bold' }}>{msg}</p>}
         </div>
     );
 };
