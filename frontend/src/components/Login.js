@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import API from '../api/axiosConfig';
 
-const Login = () => {
+// FIX: Added { onLogin } as a prop
+const Login = ({ onLogin }) => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
 
@@ -12,12 +13,16 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // Send POST request to your Java AuthController
             const response = await API.post('/auth/login', credentials);
             
-            // Save the token returned by Java
             localStorage.setItem('token', response.data);
             setMessage('Login Successful! Token saved.');
+            
+            // FIX: Call the function to tell App.js to change the screen
+            if (onLogin) {
+                onLogin();
+            }
+            
         } catch (error) {
             setMessage('Login Failed: ' + (error.response?.data?.error || 'Server Error'));
         }
