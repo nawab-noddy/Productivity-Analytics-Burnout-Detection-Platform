@@ -7,14 +7,22 @@ import Analytics from './components/Analytics';
 import './App.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
-  const [currentView, setCurrentView] = useState('home'); // 'home', 'login', 'register'
+  // 1. Check if the user has a token saved in their browser
+  const hasToken = !!localStorage.getItem('token');
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(hasToken);
+  
+  // FIX: Smart Routing
+  // If they have a token, start directly on the 'dashboard'. 
+  // If they don't have a token, start on 'home'.
+  const [currentView, setCurrentView] = useState(hasToken ? 'dashboard' : 'home'); 
+  
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    setCurrentView('home');
+    setCurrentView('home'); // Send user back to home on logout
   };
 
   return (
@@ -22,13 +30,16 @@ function App() {
       
       {/* --- NAVIGATION BAR --- */}
       <nav className="navbar">
-        <h2 className="nav-brand" onClick={() => !isLoggedIn && setCurrentView('home')}>
+        <h2 className="nav-brand" onClick={() => setCurrentView('home')}>
           🚀 YouPi Productivity
         </h2>
         
         <div className="nav-buttons">
           {isLoggedIn ? (
-            <button className="btn-danger" onClick={handleLogout}>Logout</button>
+            <>
+              <button className="btn-outline" onClick={() => setCurrentView('dashboard')}>Dashboard</button>
+              <button className="btn-danger" onClick={handleLogout}>Logout</button>
+            </>
           ) : (
             <>
               <button className="btn-outline" onClick={() => setCurrentView('login')}>Login</button>
@@ -39,15 +50,18 @@ function App() {
       </nav>
 
       {/* --- PAGE ROUTING LOGIC --- */}
-      {!isLoggedIn ? (
+      {currentView === 'home' && <Home />}
+      
+      {currentView === 'login' && !isLoggedIn && (
+        <Login onLogin={() => { setIsLoggedIn(true); setCurrentView('dashboard'); }} />
+      )}
+      
+      {currentView === 'register' && !isLoggedIn && (
+        <Register onSwitchToLogin={() => setCurrentView('login')} />
+      )}
+
+      {currentView === 'dashboard' && isLoggedIn && (
         <>
-          {currentView === 'home' && <Home />}
-          {currentView === 'login' && <Login onLogin={() => { setIsLoggedIn(true); setCurrentView('dashboard'); }} />}
-          {currentView === 'register' && <Register onSwitchToLogin={() => setCurrentView('login')} />}
-        </>
-      ) : (
-        <>
-          {/* Dashboard View: Reordered as requested! */}
           <ProductivityLogger onLogSubmitted={() => setRefreshTrigger(prev => prev + 1)} />
           <Analytics refreshTrigger={refreshTrigger} />
         </>

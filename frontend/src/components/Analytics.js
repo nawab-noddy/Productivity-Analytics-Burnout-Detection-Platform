@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api/axiosConfig';
+import DriftChart from './DriftChart'; // NEW: Import the chart!
 
-// NEW: Accept refreshTrigger as a prop
 const Analytics = ({ refreshTrigger }) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const fetchAnalytics = async () => {
             try {
+                // Fetching the averages from your AnalyticsController
                 const response = await API.get('/analytics/weekly');
                 setData(response.data);
             } catch (err) {
@@ -15,7 +16,7 @@ const Analytics = ({ refreshTrigger }) => {
             }
         };
         fetchAnalytics();
-    }, [refreshTrigger]); // NEW: Every time refreshTrigger changes, run this again!
+    }, [refreshTrigger]);
 
     if (!data) return <div className="card"><h3 style={{textAlign: 'center'}}>Loading Insights...</h3></div>;
 
@@ -38,7 +39,10 @@ const Analytics = ({ refreshTrigger }) => {
                 </div>
             </div>
 
-            <div className="alert-box alert-warning">
+            {/* NEW: Place the Chart right here! */}
+            <DriftChart refreshTrigger={refreshTrigger} />
+
+            <div className="alert-box alert-warning" style={{ marginTop: '20px' }}>
                 <h4 style={{ margin: '0 0 10px 0' }}>⚙️ Deterministic Logic (Java)</h4>
                 <p style={{ margin: '5px 0' }}><strong>Burnout Risk:</strong> {data.burnoutRisk}</p>
                 <p style={{ margin: '5px 0' }}><strong>Drift Detected:</strong> {data.productivityDropping ? "Yes 📉" : "No 📈"}</p>
