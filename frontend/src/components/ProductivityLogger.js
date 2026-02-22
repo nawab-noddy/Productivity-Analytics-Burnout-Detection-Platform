@@ -36,7 +36,6 @@ const ProductivityLogger = ({ onLogSubmitted }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // NEW: Format the arrays into comma-separated strings for Java!
             const finalPayload = {
                 ...log,
                 plannedTasks: log.plannedTasks.join(", "),
@@ -47,6 +46,11 @@ const ProductivityLogger = ({ onLogSubmitted }) => {
             setMsg('✅ Log saved! Dashboard updated automatically.');
             
             if(onLogSubmitted) onLogSubmitted();
+
+            // NEW: Auto-Scroll to the Dashboard!
+            setTimeout(() => {
+                document.getElementById('dashboard-section')?.scrollIntoView({ behavior: 'smooth' });
+            }, 300); // Slight delay to allow React to render the updated data first
 
             setTimeout(() => setMsg(''), 4000); 
         } catch (err) {

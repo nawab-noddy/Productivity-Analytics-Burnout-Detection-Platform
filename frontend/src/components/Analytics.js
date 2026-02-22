@@ -20,7 +20,7 @@ const Analytics = ({ refreshTrigger }) => {
     if (!data) return <div className="card"><h3 style={{textAlign: 'center'}}>Loading Insights...</h3></div>;
 
     return (
-        <div className="card">
+        <div id="dashboard-section" className="card">
             <h2 style={{ marginTop: 0, color: '#333' }}>Your Weekly Dashboard</h2>
             
             <div className="stats-grid">
