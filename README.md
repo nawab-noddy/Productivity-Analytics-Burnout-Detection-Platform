@@ -57,7 +57,7 @@ Python ML Microservice
 - APIs for fetching trends and summaries
 - **No AI in this phase (intentional)**
 
-### Phase 2 – Rule-Based Intelligence (Current)
+### Phase 2 – Rule-Based Intelligence 
 - Productivity drift detection using rules
 - Burnout risk thresholds
 - Alerts and warnings
@@ -69,7 +69,7 @@ Python ML Microservice
 - Probability-based predictions
 - Personalized recommendations
 
-### Phase 4 – Feedback & Improvement
+### Phase 4 – Feedback & Improvement (Current)
 - User feedback on prediction accuracy
 - Model performance monitoring
 - Future retraining support
