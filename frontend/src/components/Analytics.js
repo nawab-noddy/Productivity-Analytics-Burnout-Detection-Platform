@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api/axiosConfig';
 
-const Analytics = () => {
+// NEW: Accept refreshTrigger as a prop
+const Analytics = ({ refreshTrigger }) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -14,7 +15,7 @@ const Analytics = () => {
             }
         };
         fetchAnalytics();
-    }, []);
+    }, [refreshTrigger]); // NEW: Every time refreshTrigger changes, run this again!
 
     if (!data) return <div className="card"><h3 style={{textAlign: 'center'}}>Loading Insights...</h3></div>;
 
@@ -22,7 +23,6 @@ const Analytics = () => {
         <div className="card">
             <h2 style={{ marginTop: 0, color: '#333' }}>Your Weekly Dashboard</h2>
             
-            {/* The 3 Metric Boxes */}
             <div className="stats-grid">
                 <div className="stat-box">
                     <div>Avg Work</div>
@@ -38,7 +38,6 @@ const Analytics = () => {
                 </div>
             </div>
 
-            {/* Java Rules Box */}
             <div className="alert-box alert-warning">
                 <h4 style={{ margin: '0 0 10px 0' }}>⚙️ Deterministic Logic (Java)</h4>
                 <p style={{ margin: '5px 0' }}><strong>Burnout Risk:</strong> {data.burnoutRisk}</p>
@@ -46,7 +45,6 @@ const Analytics = () => {
                 <p style={{ margin: '10px 0 0 0', fontSize: '0.9rem' }}><em>"{data.recommendation}"</em></p>
             </div>
 
-            {/* Python AI Box */}
             <div className="alert-box alert-info">
                 <h4 style={{ margin: '0 0 10px 0' }}>🧠 AI Prediction (Python)</h4>
                 <p style={{ margin: '5px 0' }}><strong>Status:</strong> {data.aiAnalysisStatus}</p>
