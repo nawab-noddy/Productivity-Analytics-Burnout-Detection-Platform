@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # 1. The Database Container
+  mysql_db:
+    image: mysql:8.0
+    container_name: productivity_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: productivity_db
+    ports:
+      - "3306:3306"
+
+  # 2. The Python AI Container
+  ml_service:
+    build: ./ml_service
+    container_name: productivity_ml
+    ports:
+      - "5000:5000"
+
+  # 3. The Java Backend Container
+  backend:
+    build: ./backend
+    container_name: productivity_backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Override the properties to point to the Docker MySQL container instead of 'localhost'
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3306/productivity_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - mysql_db
+      - ml_service
+
+  # 4. The React Frontend Container
+  frontend:
+    build: ./frontend
+    container_name: productivity_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

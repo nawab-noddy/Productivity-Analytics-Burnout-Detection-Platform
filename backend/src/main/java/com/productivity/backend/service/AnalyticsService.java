@@ -23,7 +23,7 @@ public class AnalyticsService {
     private UserRepository userRepository;
 
     // URL of your Python Microservice
-    private final String ML_SERVICE_URL = "http://localhost:5000/predict";
+    private final String ML_SERVICE_URL = "http://ml_service:5000/predict";
 
     public AnalyticsResponse calculateWeeklyInsights(String username) {
         // 1. Fetch User and Logs
