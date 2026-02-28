@@ -54,4 +54,4 @@ def predict():
 # 4. Run the Server
 if __name__ == '__main__':
     # Java runs on 8080, so we run Python on 5000 to avoid conflict.
-    app.run(port='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
