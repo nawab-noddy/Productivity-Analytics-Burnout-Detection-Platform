@@ -1,181 +1,77 @@
-# 🧠 Productivity Drift & Burnout Detection System
+# 🌊 FlowState AI: Burnout Detection & Productivity Drift System
 
-An **AI-assisted, backend-driven web application** designed to detect early signs of productivity drift and burnout by analyzing daily behavioral metrics.  
-Unlike traditional productivity tools that only track tasks, this system focuses on **data quality, backend intelligence, and explainable decision-making**, following real industry practices.
+![FlowState AI](https://img.shields.io/badge/Status-Active-success) ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker) ![Java](https://img.shields.io/badge/Java-Spring_Boot-6DB33F?logo=spring) ![Python](https://img.shields.io/badge/Python-Machine_Learning-FFD43B?logo=python) ![React](https://img.shields.io/badge/React-Midnight_UI-61DAFB?logo=react)
 
----
+A full-stack, fully containerized Microservice platform designed to track daily productivity habits, visualize trends, and proactively detect the risk of developer burnout using a **Hybrid Intelligence** approach (Deterministic Java Rules + Probabilistic Machine Learning).
 
-## 📌 Problem Statement
+*(Add a screenshot of your beautiful Dark Mode Dashboard right here!)*
 
-Students and professionals often experience **gradual productivity decline and burnout** without realizing it.  
-Most existing applications track tasks or time but fail to **identify behavioral patterns** that signal burnout early.
+## 🚀 Key Features
+* **Modern Midnight UI:** A sleek, glassmorphism-inspired dark mode interface built with React.
+* **Daily Metric Logging:** Securely track work hours, sleep hours, stress levels, mood, and completed tasks.
+* **Interactive Visual Analytics:** Real-time data visualization of productivity trends over a 7-day rolling window using Recharts.
+* **Deterministic Rule Engine (Java):** Analyzes moving averages to detect immediate "Productivity Drift" (e.g., sleep dropping below healthy thresholds while stress spikes).
+* **AI Burnout Prediction (Python/ML):** A dedicated Machine Learning microservice (Random Forest) that forecasts the exact probability of long-term burnout based on historical patterns.
 
-This project aims to:
-- Collect reliable productivity signals
-- Detect productivity drift using business rules
-- Predict burnout risk using machine learning
-- Provide actionable insights before burnout occurs
+## 🛠️ Architecture & Tech Stack
 
----
+This project is built using an enterprise-grade Microservice architecture, fully containerized for one-click deployment.
 
-## 🎯 Project Goals
+### 1. Frontend (User Interface)
+* **React.js**: Single Page Application with dynamic state management.
+* **CSS3/Glassmorphism**: Custom CSS variables, gradients, and soft-shadow UI.
+* **Axios**: HTTP client equipped with JWT interceptors for secure API communication.
 
-- Build a **production-grade Java backend** with clean architecture
-- Design a **time-series data system** for behavioral analytics
-- Introduce AI only after a strong data foundation
-- Follow **industry-style phased development**
-- Keep backend logic as the core of the system
+### 2. Backend (Core Business Logic)
+* **Java 21 & Spring Boot 3**: RESTful API acting as the central orchestrator.
+* **Spring Security & JWT**: Stateless, token-based authentication.
+* **Hibernate/Spring Data JPA**: ORM for robust database interactions.
+* **MySQL 8**: Relational database for persistent storage.
 
----
+### 3. ML Service (Analytics Engine)
+* **Python 3.10 & Flask**: Lightweight microservice dedicated solely to serving ML predictions.
+* **Scikit-Learn**: Machine learning model trained to predict burnout risks.
 
-## 🏗️ System Architecture
+## 🐳 How to Run Locally (Docker)
 
-React Frontend
-     |
-     | REST APIs
-     v
-Spring Boot Backend (Java)
-     |
-     | REST Call
-     v
-Python ML Microservice
+You do not need to install Java, Python, Node, or MySQL on your local machine. The entire infrastructure is containerized.
 
+**Prerequisites:**
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 
-- The **Java backend** handles authentication, validation, business logic, and data storage
-- The **AI service** is a separate microservice used only for inference
-- Backend decisions are rule-driven, with AI acting as an assisting layer
+**Steps:**
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
 
----
+2. Open a terminal in the root directory and run:
+     ```bash
+     docker-compose up --build
 
-## 🧩 Project Phases
+3. Once the terminal indicates all containers are running, navigate to:
+     Frontend Application:
+     ```bash
+      http://localhost:3000
 
-### Phase 1 – Data Collection & Foundation 
-- User authentication using JWT
-- Daily productivity data input
-- Strict validation to ensure data quality
-- Time-series storage of behavioral metrics
-- APIs for fetching trends and summaries
-- **No AI in this phase (intentional)**
-
-### Phase 2 – Rule-Based Intelligence 
-- Productivity drift detection using rules
-- Burnout risk thresholds
-- Alerts and warnings
-- Weekly summaries
-
-### Phase 3 – AI Integration
-- Burnout risk classification (Low / Medium / High)
-- ML model inference via Python microservice
-- Probability-based predictions
-- Personalized recommendations
-
-### Phase 4 – Feedback & Improvement (Current)
-- User feedback on prediction accuracy
-- Model performance monitoring
-- Future retraining support
+Note: The application includes a DataSeeder that automatically creates a demo_user (password: password123) populated with 7 days of historical data so you can immediately test the analytics and charts.
 
 ---
 
-## 📊 Data Collected (Signals)
+**Screenshots**
 
-Each user provides daily metrics such as:
-- Work / Study Hours
-- Tasks Planned vs Completed
-- Break Count
-- Sleep Hours
-- Stress Level (1–5)
-- Mood
-- Date
 
-These metrics are stored as **validated time-series data** and later used for analysis and prediction.
+**Architecture**
+
+![alt text](ArchitectureFlowSate.png)
 
 ---
+**HomePage**
 
-## 🛠️ Technology Stack
-
-### Backend (Primary Focus)
-- Java
-- Spring Boot
-- Spring Security
-- JWT Authentication
-- RESTful APIs
-- Hibernate / JPA
-- Clean layered architecture (Controller → Service → Repository)
-
-### Database
-- MySQL / PostgreSQL
-- Normalized schema
-- Unique constraints to prevent duplicate daily entries
-- Optimized for time-series queries
-
-### AI / Machine Learning
-- Python
-- Scikit-learn
-- Pandas
-- NumPy
-- Logistic Regression / Random Forest
-- Flask or FastAPI for ML inference service
-
-### Frontend
-- React.js
-- Axios / Fetch API
-- Chart libraries (Chart.js / Recharts)
-
-### Dev Tools
-- Git & GitHub
-- Docker (optional)
-- Postman
-- Render / Railway / AWS (deployment-ready)
+![alt text](Home.png)
 
 ---
+**Productivity-Logger-Page**
 
-## 🔐 Key Backend Features
+![alt text](ProductivityLoogger.png)
 
-- Secure authentication & authorization (JWT)
-- Strong API validation to protect downstream analytics
-- Business-rule-based decision making
-- Microservice communication with AI service
-- Separation of raw data and derived analytics
-- Scalable and maintainable architecture
 
----
-
-## 🧠 Why This Project Is Backend-Oriented
-
-- AI is **not the core** — it is an assisting component
-- All decisions flow through backend business logic
-- Data engineering and validation are prioritized
-- System works even without AI predictions
-- Designed to reflect **real-world backend systems**
-
-This project is intentionally built to demonstrate **Java backend engineering skills**, not just UI or ML usage.
-
----
-
-## 🧪 Future Enhancements
-
-- Automated data ingestion
-- Advanced anomaly detection
-- Notification system (Email / Push)
-- Admin analytics dashboard
-- Multi-user organization support
-
----
-
-## 📄 License
-
-This project is developed for **learning, experimentation, and demonstration of backend engineering skills**.
-
----
-
-## 👨‍💻 Author
-
-**Mohammad Anas**  
-B.Tech IT  
-
----
-
-### ⭐ Final Note
-
-This project follows **industry-style phased development**, where data quality and backend reliability come before automation and AI.  
-It is designed to be **interview-friendly**, explainable, and scalable.
