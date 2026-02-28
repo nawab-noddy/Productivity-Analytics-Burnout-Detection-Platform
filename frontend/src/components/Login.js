@@ -5,9 +5,7 @@ const Login = ({ onLogin }) => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
 
-    const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+    const handleChange = (e) => setCredentials({ ...credentials, [e.target.name]: e.target.value });
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -16,22 +14,26 @@ const Login = ({ onLogin }) => {
             localStorage.setItem('token', response.data);
             if (onLogin) onLogin();
         } catch (error) {
-            setMessage('Login Failed: ' + (error.response?.data?.error || 'Server Error'));
+            setMessage('Login Failed: ' + (error.response?.data?.error || 'Invalid credentials'));
         }
     };
 
     return (
-        <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
-            <h2 style={{ textAlign: 'center', color: '#2a5298' }}>Welcome Back</h2>
-            <p style={{ textAlign: 'center', color: '#666', marginBottom: '20px' }}>Sign in to continue</p>
+        <div className="card" style={{ maxWidth: '400px', margin: '40px auto' }}>
+            <h2 className="auth-title">Welcome Back</h2>
+            <p className="auth-subtitle">Enter your credentials to continue</p>
             
             <form onSubmit={handleLogin}>
-                <input name="username" placeholder="Username" onChange={handleChange} required />
-                <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-                <button type="submit">Login</button>
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, marginLeft: '5px' }}>USERNAME</label>
+                <input name="username" placeholder="e.g. demo_user" onChange={handleChange} required />
+                
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600, marginLeft: '5px' }}>PASSWORD</label>
+                <input name="password" type="password" placeholder="••••••••" onChange={handleChange} required />
+                
+                <button type="submit" style={{ width: '100%', marginTop: '10px' }}>Sign In</button>
             </form>
             
-            {message && <p style={{ color: 'red', textAlign: 'center', marginTop: '15px' }}>{message}</p>}
+            {message && <p style={{ color: '#ef4444', textAlign: 'center', marginTop: '20px', fontWeight: 500 }}>{message}</p>}
         </div>
     );
 };

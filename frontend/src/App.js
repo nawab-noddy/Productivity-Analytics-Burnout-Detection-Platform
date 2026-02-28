@@ -7,33 +7,27 @@ import Analytics from './components/Analytics';
 import './App.css';
 
 function App() {
-  // 1. Check if the user has a token saved in their browser
   const hasToken = !!localStorage.getItem('token');
-  
   const [isLoggedIn, setIsLoggedIn] = useState(hasToken);
-  
-  // FIX: Smart Routing
-  // If they have a token, start directly on the 'dashboard'. 
-  // If they don't have a token, start on 'home'.
   const [currentView, setCurrentView] = useState(hasToken ? 'dashboard' : 'home'); 
-  
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    setCurrentView('home'); // Send user back to home on logout
+    setCurrentView('home');
   };
 
   return (
-    <div className="app-container" style={{ maxWidth: '900px' }}>
+    <div className="app-container"> {/* FIX: Removed inline max-width to allow CSS to handle it */}
       
       {/* --- NAVIGATION BAR --- */}
       <nav className="navbar">
         <h2 className="nav-brand" onClick={() => setCurrentView('home')}>
-          🚀 YouPi Productivity
+          🌊 FlowState AI {/* FIX: Changed to a modern, aesthetic project name */}
         </h2>
         
+        {/* FIX: CSS now spaces these buttons out beautifully */}
         <div className="nav-buttons">
           {isLoggedIn ? (
             <>
@@ -51,14 +45,8 @@ function App() {
 
       {/* --- PAGE ROUTING LOGIC --- */}
       {currentView === 'home' && <Home />}
-      
-      {currentView === 'login' && !isLoggedIn && (
-        <Login onLogin={() => { setIsLoggedIn(true); setCurrentView('dashboard'); }} />
-      )}
-      
-      {currentView === 'register' && !isLoggedIn && (
-        <Register onSwitchToLogin={() => setCurrentView('login')} />
-      )}
+      {currentView === 'login' && !isLoggedIn && <Login onLogin={() => { setIsLoggedIn(true); setCurrentView('dashboard'); }} />}
+      {currentView === 'register' && !isLoggedIn && <Register onSwitchToLogin={() => setCurrentView('login')} />}
 
       {currentView === 'dashboard' && isLoggedIn && (
         <>

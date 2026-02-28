@@ -22,7 +22,7 @@ const Analytics = ({ refreshTrigger }) => {
 
     return (
         <div id="dashboard-section" className="card">
-            <h2 style={{ marginTop: 0, color: '#333' }}>Your Weekly Dashboard</h2>
+            <h2 style={{ marginTop: 0}}>Your Weekly Dashboard</h2>
             
             <div className="stats-grid">
                 <div className="stat-box">

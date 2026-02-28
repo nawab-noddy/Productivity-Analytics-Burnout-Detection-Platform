@@ -11,23 +11,31 @@ const Register = ({ onSwitchToLogin }) => {
         e.preventDefault();
         try {
             await API.post('/auth/register', formData);
-            setMsg('✅ Registration Successful! You can now log in.');
-            setTimeout(() => onSwitchToLogin(), 2000); // Switch to login after 2 seconds
+            setMsg('✅ Registration Successful! Switching to login...');
+            setTimeout(() => onSwitchToLogin(), 2000);
         } catch (error) {
             setMsg('❌ Error: ' + (error.response?.data?.error || 'Registration failed'));
         }
     };
 
     return (
-        <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
-            <h2 style={{ textAlign: 'center', color: '#2a5298' }}>Create an Account</h2>
+        <div className="card" style={{ maxWidth: '400px', margin: '40px auto' }}>
+            <h2 className="auth-title">Create Account</h2>
+            <p className="auth-subtitle">Join the YouPi ecosystem</p>
+            
             <form onSubmit={handleRegister}>
-                <input name="username" placeholder="Choose a Username" onChange={handleChange} required />
-                <input name="email" type="email" placeholder="Email Address" onChange={handleChange} required />
-                <input name="password" type="password" placeholder="Create a Password" onChange={handleChange} required />
-                <button type="submit">Register</button>
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>USERNAME</label>
+                <input name="username" placeholder="Choose a username" onChange={handleChange} required />
+                
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>EMAIL</label>
+                <input name="email" type="email" placeholder="name@example.com" onChange={handleChange} required />
+                
+                <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>PASSWORD</label>
+                <input name="password" type="password" placeholder="Create a strong password" onChange={handleChange} required />
+                
+                <button type="submit" style={{ width: '100%', marginTop: '10px' }}>Register</button>
             </form>
-            {msg && <p style={{ textAlign: 'center', marginTop: '15px', fontWeight: 'bold' }}>{msg}</p>}
+            {msg && <p style={{ textAlign: 'center', marginTop: '20px', fontWeight: 500, color: msg.includes('❌') ? '#ef4444' : '#10b981' }}>{msg}</p>}
         </div>
     );
 };
