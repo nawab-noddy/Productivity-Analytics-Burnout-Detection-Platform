@@ -4,8 +4,6 @@
 
 A full-stack, fully containerized Microservice platform designed to track daily productivity habits, visualize trends, and proactively detect the risk of developer burnout using a **Hybrid Intelligence** approach (Deterministic Java Rules + Probabilistic Machine Learning).
 
-*(Add a screenshot of your beautiful Dark Mode Dashboard right here!)*
-
 ## 🚀 Key Features
 * **Modern Midnight UI:** A sleek, glassmorphism-inspired dark mode interface built with React.
 * **Daily Metric Logging:** Securely track work hours, sleep hours, stress levels, mood, and completed tasks.
